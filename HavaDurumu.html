@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+    
+<style>
+
+table{
+    font-family: arial, sans-serif;
+    border:1px solid violet;
+    border-collapse: collapse;
+    width: 75%;
+    margin: auto auto;
+}
+td,th{
+    border: 1px solid white;
+    text-align: left;
+    padding: 8px;
+    text-align: center;
+}
+tr:nth-child(even){
+    background-color: whitesmoke;
+}
+</style>
+
+
+
+</head>
+<body>
+
+    
+    <div id="sonuc"></div>
+ 
+    
+
+    <table>
+<tr>
+<th>Konum</th>
+<th>Hava Durumu</th>
+<th>Sıcaklık</th>
+<th>Rüzgar Hızı</th>
+</tr>
+
+<tr>
+   <td id=one></td>
+   <td id=two></td>
+   <td id=three></td>
+   <td id=four></td>
+   
+</tr>
+<tr>
+<td id=bursa1></td>
+<td id=bursa2></td>
+<td id=bursa3></td>
+<td id=bursa4></td>
+
+
+</tr>
+<tr>
+<td id=aks1></td>
+<td id=aks2></td>
+<td id=aks3></td>
+<td id=aks4></td>
+
+</tr>
+
+
+    </table>
+    <script>
+        function gonder(){
+    $.ajax({
+        type:'POST',
+        url:'http://127.0.0.1:5500/temeller2/%C3%B6dev/index.html',
+        success: function (msg) {
+            $("#sonuc").html(msg);
+        }
+    });
+}
+
+        </script>
+    <script>
+      $(document).ready(function(){
+          gonder();
+          var int=self.setInterval("gonder()",15000);
+$.getJSON("https://openweathermap.org/data/2.5/weather?id=315202&units=metric&appid=439d4b804bc8187953eb36d2a8c26a02",function(veri) {
+   var sıcaklık=veri.main.temp;
+var HavaDurumu=veri.weather[0].description;
+       var RüzgarHızı=veri.wind.speed; 
+      var konum=veri.name;
+
+         $( "#one" ).append(konum);
+         $( "#two" ).append(HavaDurumu);
+         $( "#three" ).append(sıcaklık);
+         $( "#four" ).append(RüzgarHızı);
+         })
+   
+$.getJSON("https://openweathermap.org/data/2.5/weather?id=750268&units=metric&appid=439d4b804bc8187953eb36d2a8c26a02",function(veri) {
+   var sıcaklık=veri.main.temp;
+var HavaDurumu=veri.weather[0].description;
+       var RüzgarHızı=veri.wind.speed; 
+      var konum=veri.name;
+$( "#bursa1" ).append(konum);
+         $( "#bursa2" ).append(HavaDurumu);
+         $( "#bursa3" ).append(sıcaklık);
+         $( "#bursa4" ).append(RüzgarHızı);
+         })
+         $.getJSON("https://openweathermap.org/data/2.5/weather?id=324496&units=metric&appid=439d4b804bc8187953eb36d2a8c26a02",function(veri) {
+   var sıcaklık=veri.main.temp;
+var HavaDurumu=veri.weather[0].description;
+       var RüzgarHızı=veri.wind.speed; 
+      var konum=veri.name;
+$( "#aks1" ).append(konum);
+         $( "#aks2" ).append(HavaDurumu);
+         $( "#aks3" ).append(sıcaklık);
+         $( "#aks4" ).append(RüzgarHızı);
+         })
+        })  
+    </script>
+</body>
+</html>
